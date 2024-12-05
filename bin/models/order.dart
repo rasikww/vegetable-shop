@@ -1,6 +1,6 @@
 class Order {
   final String id;
-  Map<int, double> items;
+  Map<String, double> items;
   double totalAmount;
   DateTime timestamp;
 
@@ -11,10 +11,21 @@ class Order {
     required this.timestamp,
   });
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'items': items,
-        'totalAmount': totalAmount,
-        'timestamp': timestamp.toIso8601String(),
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'items': items,
+      'totalAmount': totalAmount,
+      'timestamp': timestamp.toIso8601String(),
+    };
+  }
+
+  factory Order.fromJson(Map<String, dynamic> json) {
+    return Order(
+      id: json['id'],
+      items: json['items'],
+      totalAmount: json['totalAmount'],
+      timestamp: DateTime.parse(json['timestamp']),
+    );
+  }
 }

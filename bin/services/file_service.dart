@@ -19,10 +19,10 @@ class FileService {
     return null;
   }
 
-  Future<void> writeFile(List<Map<String, dynamic>> data) async {
+  void writeFile(List<Map<String, dynamic>> data) {
+    final file = File(filePath);
     try {
-      final file = File(filePath);
-      await file.writeAsString(jsonEncode(data));
+      file.writeAsStringSync(jsonEncode(data));
     } on Exception catch (e) {
       print('Error writing file: $e');
     }

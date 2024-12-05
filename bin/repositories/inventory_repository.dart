@@ -1,8 +1,10 @@
 import '../services/file_service.dart';
 import '../models/vegetable.dart';
+import 'dart:collection';
 
 class InventoryRepository {
-  final FileService _fileService = FileService('inventory.json');
+  final FileService _fileService =
+      FileService('../repositories/inventory.json');
   final List<Vegetable> _inventory = [];
 
   // Loads the inventory data from a file and fill the `_inventory` list.
@@ -15,9 +17,9 @@ class InventoryRepository {
   }
 
   // Saves the current inventory to a file.
-  Future<void> saveInventory() async {
+  void saveInventory() {
     final data = _inventory.map((item) => item.toJson()).toList();
-    await _fileService.writeFile(data);
+    _fileService.writeFile(data);
   }
 
   void addVegetable(Vegetable vegetable) {
@@ -34,12 +36,24 @@ class InventoryRepository {
     return _inventory;
   }
 
-  void updateStock(int id, double quantity) {
+  void updateStock(String id, double quantity) {
     final vegetable = _inventory.firstWhere((item) => item.id == id);
     vegetable.availableQuantity += quantity;
   }
 
-  void removeVegetable(int id) {
+  void removeVegetable(String id) {
     _inventory.removeWhere((item) => item.id == id);
+  }
+
+  Vegetable getVegetableById(String id) {
+    return _inventory.firstWhere((item) => item.id == id);
+  }
+
+  Vegetable getVegetableByName(String name) {
+    return _inventory.firstWhere((item) => item.name == name);
+  }
+
+  bool vegetableExists(String name) {
+    return _inventory.any((item) => item.name == name);
   }
 }

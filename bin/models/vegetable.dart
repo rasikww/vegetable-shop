@@ -1,10 +1,10 @@
 class Vegetable {
   final String id;
-  String name;
-  double pricePerKg;
+  final String name;
+  final double pricePerKg;
   double availableQuantity;
-  String category;
-  DateTime expiryDate;
+  final String category;
+  final DateTime expiryDate;
 
   Vegetable({
     required this.id,
@@ -26,12 +26,16 @@ class Vegetable {
     );
   }
 
-  Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'pricePerKg': pricePerKg,
-        'availableQuantity': availableQuantity,
-        'category': category,
-        'expiryDate': expiryDate.toIso8601String(),
-      };
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'pricePerKg': pricePerKg,
+      'availableQuantity': availableQuantity,
+      'category': category,
+      'expiryDate': expiryDate.toIso8601String(),
+    };
+  }
+
+  double getPricePerKg() => pricePerKg;
 }
