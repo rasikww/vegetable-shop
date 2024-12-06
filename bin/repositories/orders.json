@@ -1,0 +1,20 @@
+[
+  {
+    "id": "1733471280364",
+    "items": { "beet root": 5.0 },
+    "totalAmount": 2000.0,
+    "timestamp": "2024-12-06T13:18:00.365368"
+  },
+  {
+    "id": "1733471915974",
+    "items": { "beet root": 4.0, "cabbage": 5.0 },
+    "totalAmount": 3100.0,
+    "timestamp": "2024-12-06T13:28:35.975583"
+  },
+  {
+    "id": "1733472103657",
+    "items": { "cabbage": 3.0, "beet root": 5.0 },
+    "totalAmount": 2900.0,
+    "timestamp": "2024-12-06T13:31:43.659470"
+  }
+]
