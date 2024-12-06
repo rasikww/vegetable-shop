@@ -1,10 +1,9 @@
 import '../services/file_service.dart';
 import '../models/vegetable.dart';
-import 'dart:collection';
 
 class InventoryRepository {
   final FileService _fileService =
-      FileService('../repositories/inventory.json');
+      FileService('bin/repositories/inventory.json');
   final List<Vegetable> _inventory = [];
 
   // Loads the inventory data from a file and fill the `_inventory` list.
@@ -38,7 +37,7 @@ class InventoryRepository {
 
   void updateStock(String id, double quantity) {
     final vegetable = _inventory.firstWhere((item) => item.id == id);
-    vegetable.availableQuantity += quantity;
+    vegetable.availableQuantity = quantity;
   }
 
   void removeVegetable(String id) {

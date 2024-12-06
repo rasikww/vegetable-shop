@@ -1,7 +1,6 @@
 import '../models/vegetable.dart';
 import '../repositories/inventory_repository.dart';
 import '../models/order.dart';
-import '../services/order_processor.dart';
 import '../repositories/order_repository.dart';
 
 abstract class ThogaKadeState {}
@@ -24,8 +23,7 @@ class ErrorState extends ThogaKadeState {
 class ThogaKadeManager {
   final _inventoryRepository = InventoryRepository();
   final _orderRepository = OrderRepository();
-  late final _orderProcessor =
-      OrderProcessor(_inventoryRepository, _orderRepository);
+
   ThogaKadeState _state = LoadingState();
 
   ThogaKadeState get state => _state;
@@ -77,9 +75,10 @@ class ThogaKadeManager {
 
   void placeOrder(Map<String, double> items) {
     try {
-      Order newOrder = _orderProcessor.processOrder(items);
+      Order newOrder = processOrder(items);
       _orderRepository.addOrder(newOrder);
       _orderRepository.saveOrders();
+      _inventoryRepository.saveInventory();
       _state = LoadedState(
           _inventoryRepository.listVegetables(), _orderRepository.listOrders());
     } on Exception catch (e) {
@@ -103,5 +102,46 @@ class ThogaKadeManager {
   bool isWantedAmountAvailable(String name, double quantity) {
     final vegetable = _inventoryRepository.getVegetableByName(name);
     return vegetable.availableQuantity >= quantity;
+  }
+
+  Order processOrder(Map<String, double> items) {
+    double totalAmount = 0.0;
+    Vegetable vegetable;
+
+    for (var entry in items.entries) {
+      try {
+        //entry:= vegetableName: quantity
+        vegetable = _inventoryRepository.getVegetableByName(entry.key);
+      } on StateError {
+        throw Exception('Vegetable with name ${entry.key} not found.');
+      }
+      if (vegetable.availableQuantity < entry.value) {
+        throw Exception('Insufficient stock for ${vegetable.name}.');
+      }
+      if (vegetable.expiryDate.isBefore(DateTime.now())) {
+        throw Exception('${vegetable.name} is expired.');
+      }
+
+      // Calculate price
+      totalAmount += vegetable.pricePerKg * entry.value;
+
+      // Deduct stock
+      _inventoryRepository.updateStock(
+          vegetable.id, vegetable.availableQuantity - entry.value);
+
+      try {
+        _state = LoadedState(_inventoryRepository.listVegetables(),
+            _orderRepository.listOrders());
+      } on Exception catch (e) {
+        _state = ErrorState('Failed to process order: $e');
+      }
+    }
+
+    return Order(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      items: items,
+      totalAmount: totalAmount,
+      timestamp: DateTime.now(),
+    );
   }
 }

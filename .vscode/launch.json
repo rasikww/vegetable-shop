@@ -5,7 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "vegetable_shop",
+      "name": "Debug",
       "request": "launch",
       "type": "dart",
       "console": "terminal",

@@ -17,7 +17,7 @@ void main() async {
     print('2. View Inventory');
     print('3. Update Stock');
     print('4. Remove Vegetable');
-    print('5. Process Order');
+    print('5. Place Order');
     print('6. Generate Report');
 
     stdout.write('Choose an option: ');
@@ -26,7 +26,7 @@ void main() async {
 
     if (choice == '0') {
       print('Goodbye!');
-      print('Existing Application...');
+      print('Exiting Application...');
       break;
     }
     if (choice == '1') {
@@ -65,14 +65,16 @@ void main() async {
       print('Update Stock:');
       stdout.write('Enter vegetable ID: ');
       final id = stdin.readLineSync()!;
-      stdout.write('Enter quantity: ');
+      stdout.write('Enter available quantity: ');
       final quantity = double.parse(stdin.readLineSync()!);
       manager.updateStock(id, quantity);
+      print('Stock updated!');
     } else if (choice == '4') {
-      print('Remove Vegetable:');
+      print('Remove vegetable:');
       stdout.write('Enter vegetable ID: ');
       final id = stdin.readLineSync()!;
       manager.removeVegetable(id);
+      print('Vegetable removed!');
     } else if (choice == '5') {
       Map<String, double> items = {};
       while (true) {

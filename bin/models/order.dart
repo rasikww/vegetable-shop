@@ -23,7 +23,7 @@ class Order {
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
       id: json['id'],
-      items: json['items'],
+      items: json['items'].cast<String, double>(),
       totalAmount: json['totalAmount'],
       timestamp: DateTime.parse(json['timestamp']),
     );

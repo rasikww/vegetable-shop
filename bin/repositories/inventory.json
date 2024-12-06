@@ -1,10 +1,18 @@
 [
   {
-    "id": "1733437695650",
+    "id": "1733465289371",
+    "name": "cabbage",
+    "pricePerKg": 300.0,
+    "availableQuantity": 37.0,
+    "category": "veg",
+    "expiryDate": "2024-12-20T00:00:00.000"
+  },
+  {
+    "id": "1733469496410",
     "name": "beet root",
     "pricePerKg": 400.0,
-    "availableQuantity": 20.0,
+    "availableQuantity": 55.0,
     "category": "veg",
-    "expiryDate": "2024-12-10T00:00:00.000"
+    "expiryDate": "2024-12-20T00:00:00.000"
   }
 ]

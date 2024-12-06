@@ -3,7 +3,7 @@ import '../models/order.dart';
 
 class OrderRepository {
   final FileService _orderFileService =
-      FileService('../repositories/orders.json');
+      FileService('bin/repositories/orders.json');
   final List<Order> _orders = [];
 
   Future<void> loadOrders() async {
