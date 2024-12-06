@@ -32,13 +32,13 @@ dart bin/cli/command_handler.dart
 
 The application presents a menu-driven interface. The user can select options to perform various actions.
 
-0: Exit the application
-1: Add a vegetable to the inventory
-2: View the current inventory
-3: Update the stock of a vegetable
-4: Remove a vegetable from the inventory
-5: Place an order
-6: Generate a report (WIP)
+- 0: Exit the application
+- 1: Add a vegetable to the inventory
+- 2: View the current inventory
+- 3: Update the stock of a vegetable
+- 4: Remove a vegetable from the inventory
+- 5: Place an order
+- 6: Generate a report (WIP)
 
 ## Testing
 
