@@ -18,7 +18,7 @@ Clone the repository.
 To run the application, navigate to the project directory and execute the following command:
 
 ```bash
-dart bin/cli.dart/command_handler.dart
+dart bin/cli/command_handler.dart
 ```
 
 ## Features
